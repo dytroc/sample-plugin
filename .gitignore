@@ -1,0 +1,9 @@
+.server/
+.idea/
+out/
+.gradle/
+build/
+.buildtools/
+
+!gradle-wrapper.jar
+!gradle-wrapper.properties
