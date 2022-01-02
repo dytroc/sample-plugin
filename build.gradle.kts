@@ -6,17 +6,22 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven("https://papermc.io/repo/repository/maven-public/")
+    maven(url = "https://papermc.io/repo/repository/maven-public/")
 }
 
 dependencies {
-    compileOnly(kotlin("stdlib"))
-    compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
+    implementation(kotlin("stdlib"))
+
+    compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
     compileOnly("io.github.monun:tap-api:${project.properties["tapVersion"].toString()}")
     compileOnly("io.github.monun:kommand-api:${project.properties["kommandVersion"].toString()}")
 }
 
-// Used from monun/paper-sample
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+}
+
+// Tasks + Extra Variables (https://github.com/monun/paper-sample/blob/master/build.gradle.kts#L28-L70)
 project.extra.set("packageName", name.replace("-", ""))
 project.extra.set("pluginName", name.split('-').joinToString("") { it.capitalize() })
 
