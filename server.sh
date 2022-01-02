@@ -62,6 +62,13 @@ EOF
   echo ")" >> start.sh.conf
 fi
 
+if [ ! -f "server.properties" ]; then
+  echo "Enabling command blocks..."
+  cat << EOF > server.properties
+enable-command-block=true
+EOF
+fi
+
 if [ -f "start.sh" ]; then
   echo "Executing server start script..."
   chmod +x ./start.sh
