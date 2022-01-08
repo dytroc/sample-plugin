@@ -1,66 +1,50 @@
 plugins {
     kotlin("jvm") version "1.6.10"
-    kotlin("plugin.serialization") version "1.5.21"
-    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
-repositories {
-    mavenCentral()
-    maven(url = "https://papermc.io/repo/repository/maven-public/")
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
 
-dependencies {
-    implementation(kotlin("stdlib"))
+subprojects {
+    apply(plugin = "org.jetbrains.kotlin.jvm")
 
-    compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
-    compileOnly("io.github.monun:tap-api:${project.properties["tapVersion"].toString()}")
-    compileOnly("io.github.monun:kommand-api:${project.properties["kommandVersion"].toString()}")
+    repositories {
+        maven(url = "https://papermc.io/repo/repository/maven-public/")
+    }
+
+    dependencies {
+        implementation(kotlin("stdlib"))
+
+        compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
+        compileOnly("io.github.monun:tap-api:${project.properties["tapVersion"].toString()}")
+        compileOnly("io.github.monun:kommand-api:${project.properties["kommandVersion"].toString()}")
+    }
+
+    java {
+        toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    }
 }
 
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
-}
-
-// Tasks + Extra Variables (https://github.com/monun/paper-sample/blob/master/build.gradle.kts#L28-L70)
-project.extra.set("packageName", name.replace("-", ""))
-project.extra.set("pluginName", name.split('-').joinToString("") { it.capitalize() })
-
+// Setup Plugin Modules (https://github.com/monun/paper-sample/blob/master/build.gradle.kts#L55-L76)
 tasks {
-    processResources {
-        filesMatching("**/*.yml") {
-            expand(project.properties)
-            expand(project.extra.properties)
-        }
-    }
-
-    test {
-        useJUnitPlatform()
-    }
-
-    create<Jar>("paperJar") {
-        from(sourceSets["main"].output)
-        archiveBaseName.set(project.extra.properties["pluginName"].toString())
-        archiveVersion.set("") // For bukkit plugin update
-
+    register<DefaultTask>("setupModules") {
         doLast {
-            copy {
-                from(archiveFile)
-                val plugins = File(rootDir, ".server/plugins/")
-                into(if (File(plugins, archiveFileName.get()).exists()) File(plugins, "update") else plugins)
-            }
-        }
-    }
+            val defaultPrefix = "sample"
+            val projectPrefix = rootProject.name
 
-    shadowJar {
-        from(sourceSets["main"].output)
-        archiveBaseName.set(project.extra.properties["pluginName"].toString())
-        archiveVersion.set("") // For bukkit plugin update
+            if (defaultPrefix != projectPrefix) {
+                fun rename(suffix: String) {
+                    val from = "$defaultPrefix-$suffix"
+                    val to = "$projectPrefix-$suffix"
+                    file(from).takeIf { it.exists() }?.renameTo(file(to))
+                }
 
-        doLast {
-            copy {
-                from(archiveFile)
-                val plugins = File(rootDir, ".server/plugins/")
-                into(if (File(plugins, archiveFileName.get()).exists()) File(plugins, "update") else plugins)
+                rename("api")
+                rename("core")
+                rename("plugin")
             }
         }
     }

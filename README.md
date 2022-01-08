@@ -1,4 +1,5 @@
 # sample-plugin
+Based off https://github.com/monun/paper-sample
 
 ## Libraries
 [@monun](https://www.github.com/monun) - Made libraries such as [tap](https://www.github.com/monun/tap) and [kommand](https://www.github.com/monun/kommand) which is used for this project.
