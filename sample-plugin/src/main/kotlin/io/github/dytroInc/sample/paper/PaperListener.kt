@@ -1,4 +1,4 @@
-package io.github.dytro.sample.paper
+package io.github.dytroInc.sample.paper
 
 import net.kyori.adventure.text.Component.text
 import org.bukkit.event.EventHandler

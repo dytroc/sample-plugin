@@ -1,6 +1,6 @@
-package io.github.dytro.sample
+package io.github.dytroInc.sample
 
-import io.github.dytro.sample.paper.*
+import io.github.dytroInc.sample.paper.PaperListener
 import io.github.monun.kommand.kommand
 import net.kyori.adventure.text.Component
 import org.bukkit.event.Listener
