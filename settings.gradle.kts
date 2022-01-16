@@ -1,4 +1,4 @@
 rootProject.name = "sample"
-include("sample-plugin")
-include("sample-core")
-include("sample-api")
+include("${rootProject.name}-plugin")
+include("${rootProject.name}-core")
+include("${rootProject.name}-api")
