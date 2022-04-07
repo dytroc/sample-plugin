@@ -19,8 +19,8 @@ subprojects {
         implementation(kotlin("stdlib"))
 
         compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
-        compileOnly("io.github.monun:tap-api:${project.properties["tapVersion"].toString()}")
-        compileOnly("io.github.monun:kommand-api:${project.properties["kommandVersion"].toString()}")
+        // compileOnly("io.github.monun:tap-api:${project.properties["tapVersion"].toString()}")
+        // compileOnly("io.github.monun:kommand-api:${project.properties["kommandVersion"].toString()}")
     }
 
     java {

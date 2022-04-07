@@ -5,5 +5,5 @@ api-version: 1.18
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}
   - org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}
-  - io.github.monun:kommand:${kommandVersion}
-  - io.github.monun:tap:${tapVersion}
+  - io.github.monun:kommand-core:${kommandVersion}
+  - io.github.monun:tap-core:${tapVersion}
