@@ -23,7 +23,7 @@ force_restart=false
 # 사용할 서버 플러그인들
 plugins=(
 'https://github.com/monun/auto-reloader/releases/latest/download/AutoReloader.jar'
-'https://media.forgecdn.net/files/3559/523/worldedit-bukkit-7.2.8.jar'
+'https://media.forgecdn.net/files/3697/296/worldedit-bukkit-7.2.8.jar'
 )
 
 ### 설정 ###
